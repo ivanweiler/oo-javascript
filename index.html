@@ -37,7 +37,7 @@ Source at https://github.com/ivanweiler/oo-javascript/
 //1.click Run button
 alert("Hello Matematika");
 
-//2.click F12, switch to Console, click Run button
+//2.click F12, switch to Console tab, click Run button
 console.log("Hello Matematika");
 
 //3.uncomment bellow line, edit {name}, click Run button
@@ -50,7 +50,7 @@ console.log("Hello Matematika");
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 <pre>
-Use Chrome or Firefox + built-in Dev tools
+Chrome or Firefox + built-in Dev tools
 https://developers.google.com/chrome-developer-tools/
 https://developer.mozilla.org/en/docs/Tools
 </pre>
@@ -64,69 +64,181 @@ http://jsfiddle.net Online code editor and playground. Register.
 
 <h2>Data Structures</h2>
 
-<h3>Array</h3>
+<h3>Basic types</h3>
 <form>
 <textarea>
-var a1 = [1, 2, 3];
-var a2 = ['one', 'two', 'three'];
+//number
+var n = 5;
+//string
+var s = "Department of Mathematics";
+//boolean
+var b = true;
 
-console.log(a1[0]);
-console.log(a2.length);
+//function
+function f() {
+	console.log("Function triggered!");
+}
+
+//run function
+f();
+
+//var f = function(){}
+//var n = 5.5;
 
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>"length" is property of String and Array only</pre>
-
 
 <h3>Array</h3>
 <form>
-<textarea id="code">
+<textarea>
+var a1 = new Array(1, 2, 3);
+var a2 = new Array("one", "two", "three");
+
+console.log(a1[0]);
+console.log(a2.length);
+
+//change third value of a1 to 5
+
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>Keys vs Values
+"length" is property of String and Array only-
+</pre>
+
+<h3>Array short syntax</h3>
+<form>
+<textarea>
+var a1 = new Array(1, 2, 3);
+var a2 = [1, 2, 3];
+
+console.log(a1);
+console.log(a2);
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+<h3>Array - example 1</h3>
+<form>
+<textarea>
+var a = [true, 2, 3, ["one", "two", "three"]];
+
+console.log(a[3]);
+
+//log value "three"
+//console.log(?)
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+<h3>Object</h3>
+<form>
+<textarea>
+var o = new Object();
+o.key1 = "one";
+o.key2 = "two";
+
+console.log(o);
+console.log(o["key1"]);
+
+//set new key3 property of o
+
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>Same as Array but with named keys.</pre>
+
+<h3>Object short syntax</h3>
+<form>
+<textarea>
+var o1 = new Object();
+o1.key1 = "one";
+o.key2 = "two";
+
+var o2 = {key1:"one", key2:"two"};
+
+console.log(o1);
+console.log(o2);
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre></pre>
+
+
+<h3>Object access</h3>
+<form>
+<textarea>
+var o = {a:1, b:2, c:3};
+
+console.log(o1);
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre></pre>
+
+<h3>Object - example 1</h3>
+<form>
+<textarea>
+var o = {a:1, b:2, c:3};
+
+o.test = function() {
+};
+
+o.test();
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre></pre>
+
+
+<h3>FOR IN statement</h3>
+<form>
+<textarea>
+var a = [1,2,3];
+for (var i = 0; i < a.length; i++) {
+	console.log(a[i]); break;
+}
+
+var o = {a:1, b:2, c:3};
+//FOR every property IN object
+for (var i in o) {
+	console.log(i+":"+o[i]);
+	//if(a.hasOwnProperty(i)){}
+}
+
+</textarea>
+<button type="button">Reset</button>
+<button type="submit">Run</button>
+</form>
+<pre>
+Loop through Arrays using for loop and through Objects using for-in loop.
+Use Object.hasOwnProperty() to filter if needed (or Object.keys())
+</pre>
+
+<h3>Back to start</h3>
+<form class="large">
+<textarea>
 //number
 var n = 5;
 //string
-var s = "Inchoo";
+var s = "Department of Mathematics";
 //boolean
 var b = true;
 //array
 var a = [1,2,3];
 //object
-var o = {'key1':'value1', 'key2':'value2', 5: 88};
+var o = {"key1":"value1", "key2":"value2", 5: 88};
 
-//function
-function test() {
-	console.log("Function test was triggered!");
-}
-
-//var test = function(){}
-
-//run function
-test();
-
-
-/*
-var x = "The answer " + "is " + 42;
-var y = 42 + " is the answer";
-
-console.log(x);
-console.log(y);
-*/
-</textarea>
-<button type="button">Reset</button>
-<button type="submit">Run</button>
-</form>
-
-
-
-<h3>Xyz</h3>
-<form>
-<textarea>
+console.log(typeof n);
+console.log(typeof s);
+console.log(s.substr(0,4));
+//@question: how come this works?
 
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-
-
+<pre></pre>
 
 <h3>Everything is an Object</h3>
 <form class="large">
@@ -144,65 +256,21 @@ var test = function(){
 	alert(1);
 }
 
+var f = new Function('a', 'b', 'return a + b');
+
 console.log(typeof n);
 console.log(typeof test);
-
-/*
-console.log(n+1);
-console.log(a);
-*/
-
-/*
-s = "Inchoo";
-console.log(typeof s);
-console.log(s.substr(0,4));
-//@question: how come this works?
-*/
-
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 <pre>http://www.w3schools.com/js/js_objects.asp</pre>
 
 
-<h3>Statements</h3>
-<form>
-<textarea>
-
-var a = [1,2,3];
-for (var i = 0; i < a.length; i++) {
-	console.log(a[i]); break;
-}
-
-var a = {a:1, b:2, c:3};
-//FOR every property IN the a object
-for (var i in a) {
-	console.log(i+":"+a[i]);
-	//if(a.hasOwnProperty(i)){}
-}
-
-</textarea>
-<button type="button">Reset</button>
-<button type="submit">Run</button>
-</form>
-<pre>
-"length" is property of String and Array only, so loop through Arrays using for loop and through Objects using for-in loop (as in above example)
-Use Object.hasOwnProperty() to filter if needed (or Object.keys())
-</pre>
-
-
-<h3>Built-in Objects</h3>
+<h3>Global Objects</h3>
 <pre>
 Math, JSON, Date, RegExp ..
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 </pre>
-
-
-
-
-
-
-<h2>Additional</h2>
 
 <h3>Questions</h3>
 <form class="large">
@@ -214,8 +282,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 <h3>Todo</h3>
 <pre>
-Go through this workshop one more time. Check resources.
-CodeAcademy - Data structures, Objects 1 i 2
+CodeAcademy - Data structures courses
+http://www.codecademy.com/en/tracks/javascript
 </pre>
 
 <h3>Resources</h3>
@@ -236,7 +304,7 @@ CodeAcademy - Data structures, Objects 1 i 2
 <pre>
 Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects", which are data structures that contain data, in the form of fields, often known as attributes or properties; and code, in the form of procedures, often known as methods.
 
-Class vs. Object ?!
+Class vs. Object - An object is an instance of a class
 </pre>
 
 <h2>Defining a Class</h2>
