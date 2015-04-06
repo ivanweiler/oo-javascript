@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Object-oriented Javascript</title>
+<link rel="stylesheet" href="_engine/codemirror/codemirror.css">
+<link rel="stylesheet" href="_engine/style.css">
+<style>
+<!-- custom style goes here -->
+</style>
+</head>
+
+<body class="slideshowX">
+
+<h1>Object-oriented Javascript</h1>
+
+<h2>Intro</h2>
+
+<h3>About Us</h3>
+<pre>
+Ivan Weiler - senior developer and educator, Inchoo
+Osijek Software City, http://softwarecity.hr
+
+J. J. Strossmayer University of Osijek – Department of Mathematics
+April, 2015
+</pre>
+
+<h3>Workshop user guide</h3>
+<form>
+<textarea>
+//1.click Run button
+alert("Hello Matematika");
+
+//2.click F12, switch to Console, click Run button
+console.log("Hello Matematika");
+
+//3.uncomment bellow line, edit {name}, click Run button
+//alert("Hello {name}");
+
+//4.click Reset button
+
+//5.press shift+n, shift+s to toggle between modes
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>
+Use Chrome or Firefox + built-in Dev tools
+https://developers.google.com/chrome-developer-tools/
+https://developer.mozilla.org/en/docs/Tools
+</pre>
+
+<h3>Codecademy, JSFiddle</h3>
+<pre>
+http://www.codecademy.com/ Learn to code interactively. Register.
+http://jsfiddle.net Online code editor and playground. Register.
+</pre>
+
+
+<h2>Data Structures</h2>
+
+<h3>Array</h3>
+<form>
+<textarea>
+var a1 = [1, 2, 3];
+var a2 = ['one', 'two', 'three'];
+
+console.log(a[0]);
+console.log(a.length);
+
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>"length" is property of String and Array only</pre>
+
+
+<h3>Array</h3>
+<form>
+<textarea id="code">
+//number
+var n = 5;
+//string
+var s = "Inchoo";
+//boolean
+var b = true;
+//array
+var a = [1,2,3];
+//object
+var o = {'key1':'value1', 'key2':'value2', 5: 88};
+
+//function
+function test() {
+	console.log("Function test was triggered!");
+}
+
+//var test = function(){}
+
+//run function
+test();
+
+
+/*
+var x = "The answer " + "is " + 42;
+var y = 42 + " is the answer";
+
+console.log(x);
+console.log(y);
+*/
+</textarea>
+<button type="button">Reset</button>
+<button type="submit">Run</button>
+</form>
+
+
+
+<h3>Xyz</h3>
+<form>
+<textarea>
+
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+
+
+<h3>Everything is an Object</h3>
+<form class="large">
+<textarea>
+var n = new Number(5);
+var s = new String("Inchoo");
+var b = new Boolean(true);
+var a = new Array(1,2,3);
+var o = new Object();
+o.key1 = 'value1';
+o["key2"] = "value2";
+//delete o.key1
+
+var test = function(){
+	alert(1);
+}
+
+console.log(typeof n);
+console.log(typeof test);
+
+/*
+console.log(n+1);
+console.log(a);
+*/
+
+/*
+s = "Inchoo";
+console.log(typeof s);
+console.log(s.substr(0,4));
+//@question: how come this works?
+*/
+
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>http://www.w3schools.com/js/js_objects.asp</pre>
+
+
+<h3>Statements</h3>
+<form>
+<textarea>
+
+var a = [1,2,3];
+for (var i = 0; i < a.length; i++) {
+	console.log(a[i]); break;
+}
+
+var a = {a:1, b:2, c:3};
+//FOR every property IN the a object
+for (var i in a) {
+	console.log(i+":"+a[i]);
+	//if(a.hasOwnProperty(i)){}
+}
+
+</textarea>
+<button type="button">Reset</button>
+<button type="submit">Run</button>
+</form>
+<pre>
+"length" is property of String and Array only, so loop through Arrays using for loop and through Objects using for-in loop (as in above example)
+Use Object.hasOwnProperty() to filter if needed (or Object.keys())
+</pre>
+
+
+<h3>Built-in Objects</h3>
+<pre>
+Math, JSON, Date, RegExp ..
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
+</pre>
+
+
+
+
+
+
+<h2>Additional</h2>
+
+<h3>Questions</h3>
+<form class="large">
+<textarea>
+//playground
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+<h3>Todo</h3>
+<pre>
+Go through this workshop one more time. Check resources.
+CodeAcademy - Data structures, Objects 1 i 2
+</pre>
+
+<h3>Resources</h3>
+<pre>
+
+</pre>
+
+
+
+
+
+<h1>Prototypes</h1>
+
+
+<h2>Intro</h2>
+
+<h3>What is OOP?</h3>
+<pre>
+Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects", which are data structures that contain data, in the form of fields, often known as attributes or properties; and code, in the form of procedures, often known as methods.
+
+Class vs. Object ?!
+</pre>
+
+<h2>Defining a Class</h2>
+
+<h3>Constructor</h3>
+<pre>
+A new JavaScript class is defined by creating a simple function.
+A "constructor" in JavaScript is just a function that happens to be called with the new operator.</pre>
+<form>
+<textarea>
+function Student() {
+    this.x = 1;
+    this.y = 2;
+	console.log('Student constructor called.');
+}
+
+var Ivan = new Student();
+console.log(Ivan);
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+<h3>Constructor - example</h3>
+<form>
+<textarea>
+function Student(y) {
+    this.x = 1;
+	this.y = y;
+	console.log(this);
+}
+
+var Ivan = new Student(2);
+var Pero = new Student(3);
+
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+<h3>Prototype</h3>
+<form class="large">
+<textarea>
+function Student() {
+	console.log('I am contructor :]');
+}
+
+console.log(Student.prototype);
+
+Student.prototype = {
+	x: 1,
+	y: 2,
+	test: function() { alert(1); }
+};
+
+var Ivan = new Student();
+console.log(Ivan);
+//Ivan.test();
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>The prototype property allows you to add properties and methods to an object.</pre>
+
+<h3>Prototype - example 2</h3>
+<form>
+<textarea>
+function Student(z) {
+	this.z = z;
+}
+
+Student.prototype.x = 1;
+Student.prototype.y = 2;
+
+var Ivan = new Student(3);
+console.log(Ivan);
+
+
+//Student.prototype.x = 'LOL'; //changing prototype on the fly!
+//console.log(Ivan);
+
+//console.log(Ivan.__proto__);
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>Every JavaScript object has an internal property called Prototype. If you create a new object via new Func(), the object's Prototype property will be set to the object referenced by Func.prototype.
+</pre>
+
+<h3>Object vs Class</h3>
+<form>
+<textarea>
+//var Ivan = new Inchooer(); //Ivan object is created out of class Inchooer
+var Ivan = {x:1, y:2}; //Ivan object is created out of class Object !!
+
+/*
+function Object() {} //class Object that exists in javascript engine
+var Ivan = new Object(); //synonym of the above
+*/
+
+console.log(Ivan);
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+
+<h3>Prototype Chain</h3>
+<form>
+<textarea>
+var Ivan = {x:1, y:2};
+var Pero = {x:11, y:12, z:13};
+
+console.log(Ivan.z);
+
+Ivan.__proto__ = Pero; // Pero is now the prototype of Ivan
+
+console.log(Ivan.z);
+//console.log(Ivan.x);
+
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>note: __proto__ isn't working in all browsers, it's used here just for presentation purposes</pre>
+
+<h3>Prototype Chain</h3>
+<img src="assets/prototype.gif" />
+
+<h3>Native objects</h3>
+<form class="small">
+<textarea>
+var a = 2;	// think "var a = new Number(2);"
+console.log(a.__proto__);
+console.log(a.__proto__.__proto__);
+console.log(a.__proto__.__proto__.__proto__);
+
+//console.log(a.constructor.prototype);
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>
+All objects in JavaScript are descended from object "Object", so all objects inherit methods and properties from Object.prototype.
+</pre>
+
+<h3>Inheritance - extend class</h3>
+<form class="large">
+<textarea>
+//Inchooer extends Developer
+
+function Developer() {
+	this.x = 1;
+}
+
+function Inchooer() {
+	this.y = 2;
+}
+
+Inchooer.prototype = new Developer(); //inherit Developer !!
+//Inchooer.prototype.constructor = Developer; //correct the constructor
+
+var Ivan = new Inchooer();
+console.log(Ivan);
+console.log(Ivan instanceof Developer);
+console.log(Ivan instanceof Inchooer);
+
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+<h3>Object.create()</h3>
+<pre>New age method. Creates a new object with the specified prototype object and properties.</pre>
+<form class="small">
+<textarea>
+var Inchooer = {
+	x: 1,
+	y: 2,
+	test: function() { alert(1); }
+};
+var Ivan = Object.create(Inchooer); 
+console.log(Ivan);
+
+
+/* polyfill
+Object.create = function (o) {
+	function F() {}
+	F.prototype = o;
+	return new F();
+};
+*/
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+<h3>Bad practice: Extension of native prototypes</h3>
+<pre>
+One mis-feature that is often used is to extend Object.prototype or one of the other built-in prototypes.
+This technique is called monkey patching and breaks encapsulation. While used by popular frameworks such as Prototype.js, there is still no good reason for cluttering built-in types with additional non-standard functionality.
+The only good reason for extending a built-in prototype is to backport the features of newer JavaScript engines; for example Array.forEach, etc.
+</pre>
+
+
+<!--
+<h2>Subtitle</h2>
+
+<h3>Dummy</h3>
+<pre>
+
+</pre>
+<form class="small">
+<textarea>
+console.log(123);
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+-->
+
+
+
+<h2>Additional</h2>
+<h3>Todo</h3>
+<pre>Go through (at least) first 3 Resource articles</pre>
+<h3>Resources</h3>
+<pre>
+http://net.tutsplus.com/tutorials/javascript-ajax/prototypes-in-javascript-what-you-need-to-know/
+http://net.tutsplus.com/tutorials/javascript-ajax/the-basics-of-object-oriented-javascript/
+http://yehudakatz.com/2011/08/12/understanding-prototypes-in-javascript/
+http://mckoss.com/jscript/object.htm
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype
+http://dmitrysoshnikov.com/ecmascript/javascript-the-core/
+http://en.wikipedia.org/wiki/Prototype-based_programming
+http://ejohn.org/apps/learn/#64
+</pre>
+
+
+
+
+
+<p class="foot">2015 Ivan Weiler, Inchoo</p>
+
+<script src="_engine/jquery-2.0.3.min.js"></script>
+<script src="_engine/codemirror/codemirror.js"></script>
+<script src="_engine/codemirror/javascript.js"></script>
+<script src="_engine/codemirror/matchbrackets.js"></script>
+<script src="_engine/script.v2.js"></script>
+<script>
+<!-- custom js goes here -->	
+</script>
+</body>
+</html>
