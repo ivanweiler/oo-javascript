@@ -289,14 +289,13 @@ http://www.codecademy.com/en/tracks/javascript
 
 <h3>Resources</h3>
 <pre>
-
+http://www.w3schools.com/js/default.asp
+http://www.w3schools.com/jsref/default.asp
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 </pre>
 
 
-
-<h1>Prototyping</h1>
-
-<h2>OOP</h2>
+<h2>Prototyping</h2>
 
 <h3>What is OOP?</h3>
 <pre>
@@ -304,9 +303,7 @@ Object-oriented programming (OOP) is a programming paradigm based on the concept
 Class vs. Object - An object is an instance of a class
 </pre>
 
-<h2>The Class</h2>
-
-<h3>Constructor</h3>
+<h3>Class Constructor</h3>
 <pre>
 A new JavaScript class is defined by creating a simple function.
 A "constructor" in JavaScript is just a function that happens to be called with the new operator.</pre>
@@ -324,7 +321,7 @@ console.log(Ivan);
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 
-<h3>Constructor - example</h3>
+<h3>Class Constructor - example</h3>
 <form>
 <textarea>
 function Student(n) {
@@ -342,7 +339,7 @@ var Pero = new Student("Pero");
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 
-<h3>Properties and methods</h3>
+<h3>Class properties and methods</h3>
 <form class="large">
 <textarea>
 function Student() {
@@ -363,7 +360,7 @@ console.log(Ivan);
 </form>
 <pre>Prototype allows you to add properties and methods to an object.</pre>
 
-<h3>Prototype - example</h3>
+<h3>Class - example</h3>
 <form>
 <textarea>
 function Student(n) {
@@ -405,7 +402,35 @@ console.log(Ivan);
 </form>
 
 
-<h2>Prototype Chain and Inheritance</h2>
+<h2>Prototype Chain</h2>
+
+<h3>Inheritance</h3>
+<form class="large">
+<textarea>
+//Inchooer extends Developer
+
+function Developer() {
+	this.x = 1;
+}
+
+function Inchooer() {
+	this.y = 2;
+}
+
+Inchooer.prototype = new Developer(); //inherit Developer !!
+//Inchooer.prototype.constructor = Developer; //correct the constructor
+
+var Ivan = new Inchooer();
+console.log(Ivan);
+console.log(Ivan instanceof Developer);
+console.log(Ivan instanceof Inchooer);
+
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>
+Inheritance - 
+</pre>
 
 <h3>Prototype Chain</h3>
 <form>
@@ -444,33 +469,6 @@ console.log(a.__proto__.__proto__.__proto__);
 All objects in JavaScript are descended from object "Object", so all objects inherit methods and properties from Object.prototype.
 </pre>
 
-<h3>Inheritance</h3>
-<form class="large">
-<textarea>
-//Inchooer extends Developer
-
-function Developer() {
-	this.x = 1;
-}
-
-function Inchooer() {
-	this.y = 2;
-}
-
-Inchooer.prototype = new Developer(); //inherit Developer !!
-//Inchooer.prototype.constructor = Developer; //correct the constructor
-
-var Ivan = new Inchooer();
-console.log(Ivan);
-console.log(Ivan instanceof Developer);
-console.log(Ivan instanceof Inchooer);
-
-</textarea>
-<button type="button">Reset</button><button type="submit">Run</button>
-</form>
-<pre>
-Inheritance - 
-</pre>
 
 <h3>Object.create()</h3>
 <pre>New age method. Creates a new object with the specified prototype object and properties.</pre>
