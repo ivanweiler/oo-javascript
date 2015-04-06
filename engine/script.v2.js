@@ -33,7 +33,7 @@
 	}
 	
 	jQuery('form').submit(function(e){
-		//console.clear();
+		console.clear();
 
 		for ( var item in window ) {
 			if ( !stasis[item] ) {

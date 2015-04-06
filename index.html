@@ -74,6 +74,8 @@ var s = "Department of Mathematics";
 //boolean
 var b = true;
 
+//array, object
+
 //function
 function f() {
 	console.log("Function triggered!");
@@ -95,16 +97,18 @@ f();
 var a1 = new Array(1, 2, 3);
 var a2 = new Array("one", "two", "three");
 
-console.log(a1[0]);
-console.log(a2.length);
+console.log(a1);
+
+//console.log(a2[0]);
+//console.log(a2.length);
 
 //change third value of a1 to 5
 
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>Keys vs Values
-"length" is property of String and Array only-
+<pre>Array has Keys and Values.
+"length" is property of String and Array only.
 </pre>
 
 <h3>Array short syntax</h3>
@@ -136,8 +140,8 @@ console.log(a[3]);
 <form>
 <textarea>
 var o = new Object();
-o.key1 = "one";
-o.key2 = "two";
+o["key1"] = "one";
+o["key2"] = "two";
 
 console.log(o);
 console.log(o["key1"]);
@@ -153,8 +157,8 @@ console.log(o["key1"]);
 <form>
 <textarea>
 var o1 = new Object();
-o1.key1 = "one";
-o.key2 = "two";
+o1["key1"] = "one";
+o1["key2"] = "two";
 
 var o2 = {key1:"one", key2:"two"};
 
@@ -169,42 +173,44 @@ console.log(o2);
 <h3>Object access</h3>
 <form>
 <textarea>
-var o = {a:1, b:2, c:3};
+var o = {key1:"one", key2:"two", 1337:"three"};
 
-console.log(o1);
+console.log(o["key1"]);
+console.log(o.key1);
+
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 <pre></pre>
 
-<h3>Object - example 1</h3>
+<h3>Object method</h3>
 <form>
 <textarea>
 var o = {a:1, b:2, c:3};
-
 o.test = function() {
+	console.log("Function triggered");
 };
 
 o.test();
+
+//define second method named getName that logs your name
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 <pre></pre>
-
 
 <h3>FOR IN statement</h3>
 <form>
 <textarea>
 var a = [1,2,3];
 for (var i = 0; i < a.length; i++) {
-	console.log(a[i]); break;
+	console.log(a[i]);
 }
 
 var o = {a:1, b:2, c:3};
 //FOR every property IN object
 for (var i in o) {
-	console.log(i+":"+o[i]);
-	//if(a.hasOwnProperty(i)){}
+	console.log(i + ":" + o[i]);
 }
 
 </textarea>
@@ -213,7 +219,7 @@ for (var i in o) {
 </form>
 <pre>
 Loop through Arrays using for loop and through Objects using for-in loop.
-Use Object.hasOwnProperty() to filter if needed (or Object.keys())
+Use Object.hasOwnProperty() to filter if needed (or Object.keys()).
 </pre>
 
 <h3>Back to start</h3>
@@ -229,10 +235,11 @@ var b = true;
 var a = [1,2,3];
 //object
 var o = {"key1":"value1", "key2":"value2", 5: 88};
+//function
+var f = function(){};
 
-console.log(typeof n);
-console.log(typeof s);
-console.log(s.substr(0,4));
+console.log(typeof n, typeof s, typeof b, typeof a, typeof o, typeof f);
+console.log(s.substr(14,11));
 //@question: how come this works?
 
 </textarea>
@@ -244,22 +251,15 @@ console.log(s.substr(0,4));
 <form class="large">
 <textarea>
 var n = new Number(5);
-var s = new String("Inchoo");
+var s = new String("Department");
 var b = new Boolean(true);
 var a = new Array(1,2,3);
 var o = new Object();
-o.key1 = 'value1';
-o["key2"] = "value2";
-//delete o.key1
+var f = new Function();
 
-var test = function(){
-	alert(1);
-}
-
-var f = new Function('a', 'b', 'return a + b');
-
-console.log(typeof n);
-console.log(typeof test);
+console.log(typeof s);
+//s = s + " of Mathematics";
+//console.log(typeof s);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
@@ -273,7 +273,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 </pre>
 
 <h3>Questions</h3>
-<form class="large">
+<form>
 <textarea>
 //playground
 </textarea>
@@ -293,21 +293,17 @@ http://www.codecademy.com/en/tracks/javascript
 
 
 
-
-
 <h1>Prototypes</h1>
-
 
 <h2>Intro</h2>
 
 <h3>What is OOP?</h3>
 <pre>
 Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects", which are data structures that contain data, in the form of fields, often known as attributes or properties; and code, in the form of procedures, often known as methods.
-
 Class vs. Object - An object is an instance of a class
 </pre>
 
-<h2>Defining a Class</h2>
+<h2>Class in Javascript</h2>
 
 <h3>Constructor</h3>
 <pre>
@@ -316,9 +312,9 @@ A "constructor" in JavaScript is just a function that happens to be called with 
 <form>
 <textarea>
 function Student() {
-    this.x = 1;
-    this.y = 2;
-	console.log('Student constructor called.');
+	this.department = "Mathematics";
+	this.town = "Osijek";
+	console.log("Student constructor called.");
 }
 
 var Ivan = new Student();
@@ -330,31 +326,31 @@ console.log(Ivan);
 <h3>Constructor - example</h3>
 <form>
 <textarea>
-function Student(y) {
-    this.x = 1;
-	this.y = y;
+function Student(n) {
+	this.department = "Mathematics";
+	this.town = "Osijek";
+	this.name = n;
 	console.log(this);
 }
 
-var Ivan = new Student(2);
-var Pero = new Student(3);
+var Ivan = new Student("Ivan");
+var Pero = new Student("Pero");
 
+//could we do this with Object?
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 
-<h3>Prototype</h3>
+<h3>Properties and methods</h3>
 <form class="large">
 <textarea>
 function Student() {
-	console.log('I am contructor :]');
+	console.log("Student constructor called.");
 }
 
-console.log(Student.prototype);
-
 Student.prototype = {
-	x: 1,
-	y: 2,
+	department: "Mathematics",
+	town: "Osijek",
 	test: function() { alert(1); }
 };
 
@@ -364,23 +360,24 @@ console.log(Ivan);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>The prototype property allows you to add properties and methods to an object.</pre>
+<pre>Prototype allows you to add properties and methods to an object.</pre>
 
-<h3>Prototype - example 2</h3>
+<h3>Prototype - example</h3>
 <form>
 <textarea>
-function Student(z) {
-	this.z = z;
+function Student(n) {
+	this.name = n;
 }
 
-Student.prototype.x = 1;
-Student.prototype.y = 2;
+console.log(Student.prototype);
 
-var Ivan = new Student(3);
+Student.prototype.department = "Mathematics";
+Student.prototype.town = "Osijek";
+
+var Ivan = new Student("Ivan");
 console.log(Ivan);
 
-
-//Student.prototype.x = 'LOL'; //changing prototype on the fly!
+//Student.prototype.name = "Pero"; //changing prototype on the fly!
 //console.log(Ivan);
 
 //console.log(Ivan.__proto__);
@@ -406,6 +403,8 @@ console.log(Ivan);
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 
+
+<h2>Prototype Chain and Inheritance</h2>
 
 <h3>Prototype Chain</h3>
 <form>
@@ -444,7 +443,7 @@ console.log(a.__proto__.__proto__.__proto__);
 All objects in JavaScript are descended from object "Object", so all objects inherit methods and properties from Object.prototype.
 </pre>
 
-<h3>Inheritance - extend class</h3>
+<h3>Inheritance</h3>
 <form class="large">
 <textarea>
 //Inchooer extends Developer
@@ -468,6 +467,9 @@ console.log(Ivan instanceof Inchooer);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
+<pre>
+Inheritance - 
+</pre>
 
 <h3>Object.create()</h3>
 <pre>New age method. Creates a new object with the specified prototype object and properties.</pre>
@@ -505,15 +507,15 @@ The only good reason for extending a built-in prototype is to backport the featu
 <h2>Subtitle</h2>
 
 <h3>Dummy</h3>
-<pre>
-
-</pre>
-<form class="small">
+<form>
 <textarea>
 console.log(123);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
+<pre>
+
+</pre>
 -->
 
 
