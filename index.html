@@ -264,7 +264,6 @@ console.log(typeof s);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>http://www.w3schools.com/js/js_objects.asp</pre>
 
 
 <h3>Global Objects</h3>
@@ -304,9 +303,6 @@ Class vs. Object - An object is an instance of a class
 </pre>
 
 <h3>Class Constructor</h3>
-<pre>
-A new JavaScript class is defined by creating a simple function.
-A "constructor" in JavaScript is just a function that happens to be called with the new operator.</pre>
 <form>
 <textarea>
 function Student() {
@@ -315,11 +311,15 @@ function Student() {
 	console.log("Student constructor called.");
 }
 
-var Ivan = new Student();
-console.log(Ivan);
+var Pero = new Student();
+console.log(Pero);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
+<pre>
+A new JavaScript class is defined by creating a simple function.
+A "constructor" in JavaScript is just a function that happens to be called with the new operator.
+</pre>
 
 <h3>Class Constructor - example</h3>
 <form>
@@ -331,8 +331,8 @@ function Student(n) {
 	console.log(this);
 }
 
-var Ivan = new Student("Ivan");
 var Pero = new Student("Pero");
+var Ivan = new Student("Ivan");
 
 //could we do this with Object?
 </textarea>
@@ -340,7 +340,7 @@ var Pero = new Student("Pero");
 </form>
 
 <h3>Class properties and methods</h3>
-<form class="large">
+<form>
 <textarea>
 function Student() {
 	console.log("Student constructor called.");
@@ -349,12 +349,12 @@ function Student() {
 Student.prototype = {
 	department: "Mathematics",
 	town: "Osijek",
-	test: function() { alert(1); }
+	test: function() { alert("Test called."); }
 };
 
-var Ivan = new Student();
-console.log(Ivan);
-//Ivan.test();
+var Pero = new Student();
+console.log(Pero);
+//Pero.test();
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
@@ -372,31 +372,31 @@ console.log(Student.prototype);
 Student.prototype.department = "Mathematics";
 Student.prototype.town = "Osijek";
 
-var Ivan = new Student("Ivan");
-console.log(Ivan);
+var Pero = new Student("Pero");
+console.log(Pero);
 
-//Student.prototype.name = "Pero"; //changing prototype on the fly!
-//console.log(Ivan);
-
-//console.log(Ivan.__proto__);
+//Student.prototype.name = "Ivan"; //changing prototype on the fly!
+//console.log(Pero);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>Every JavaScript object has an internal property called Prototype. If you create a new object via new Func(), the object's Prototype property will be set to the object referenced by Func.prototype.
+<pre>Every JavaScript object has an internal property called Prototype. If you create a new object via "new SomeClass()", 
+the objects Prototype property will be set to the object referenced by "SomeClass.prototype".
 </pre>
 
 <h3>Object vs Class</h3>
 <form>
 <textarea>
-//var Ivan = new Inchooer(); //Ivan object is created out of class Inchooer
-var Ivan = {x:1, y:2}; //Ivan object is created out of class Object !!
+function Student(){};
+var Pero = new Student(); //Pero object is created out of class Student
 
 /*
-function Object() {} //class Object that exists in javascript engine
-var Ivan = new Object(); //synonym of the above
+function Object() {}		//Object constructor (class) that exists in js engine
+var Pero = new Object();	//Pero object is created out of class Object
+var Pero = {}; 				//synonym of the above
 */
 
-console.log(Ivan);
+console.log(Pero);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
@@ -407,29 +407,27 @@ console.log(Ivan);
 <h3>Inheritance</h3>
 <form class="large">
 <textarea>
-//Inchooer extends Developer
+//MathStudent extends Student
 
-function Developer() {
-	this.x = 1;
+function MathStudent() {
+	this.department = "Mathematics";
+}
+function Student() {
+	this.university = "J.J. Strossmayer, Osijek";
 }
 
-function Inchooer() {
-	this.y = 2;
-}
+MathStudent.prototype = new Student();			//inherits Student !!
+//MathStudent.prototype.constructor = Student;	//correct the constructor
 
-Inchooer.prototype = new Developer(); //inherit Developer !!
-//Inchooer.prototype.constructor = Developer; //correct the constructor
-
-var Ivan = new Inchooer();
-console.log(Ivan);
-console.log(Ivan instanceof Developer);
-console.log(Ivan instanceof Inchooer);
-
+var Pero = new MathStudent();
+console.log(Pero);
+console.log(Pero instanceof Student);
+console.log(Pero instanceof MathStudent);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 <pre>
-Inheritance - 
+Inheritance is when one class extends another class, inheriting all its behaviour (properties and methods).
 </pre>
 
 <h3>Prototype Chain</h3>
@@ -440,15 +438,13 @@ var Pero = {x:11, y:12, z:13};
 
 console.log(Ivan.z);
 
-Ivan.__proto__ = Pero; // Pero is now the prototype of Ivan
 
-console.log(Ivan.z);
-//console.log(Ivan.x);
-
+//Ivan.__proto__ = Pero; // Pero is now the prototype of Ivan
+//console.log(Ivan.z);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>note: __proto__ isn't working in all browsers, it's used here just for presentation purposes</pre>
+<pre>__proto__ isn't working in all browsers, it's used here just for presentation purposes</pre>
 
 <h3>Prototype Chain</h3>
 <img src="assets/prototype.gif" />
@@ -474,22 +470,12 @@ All objects in JavaScript are descended from object "Object", so all objects inh
 <pre>New age method. Creates a new object with the specified prototype object and properties.</pre>
 <form class="small">
 <textarea>
-var Inchooer = {
-	x: 1,
-	y: 2,
-	test: function() { alert(1); }
+var Student = {
+	department: "Mathematics";
+	test: function() { alert("Test called."); }
 };
-var Ivan = Object.create(Inchooer); 
-console.log(Ivan);
-
-
-/* polyfill
-Object.create = function (o) {
-	function F() {}
-	F.prototype = o;
-	return new F();
-};
-*/
+var Pero = Object.create(Student); 
+console.log(Pero);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
@@ -539,9 +525,6 @@ http://dmitrysoshnikov.com/ecmascript/javascript-the-core/
 http://en.wikipedia.org/wiki/Prototype-based_programming
 http://ejohn.org/apps/learn/#64
 </pre>
-
-
-
 
 
 <p class="foot">2015 Ivan Weiler, Inchoo</p>
