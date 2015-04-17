@@ -268,10 +268,12 @@ console.log(typeof s);
 </form>
 
 
-<h3>Global Objects</h3>
+<h3>Global and Element Objects</h3>
 <pre>
-Math, JSON, Date, RegExp ..
+There are many other built in object like Math, JSON, Date, RegExp ..
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
+
+Also, every html element is an object.
 </pre>
 
 <h3>Questions</h3>
@@ -425,6 +427,9 @@ var Pero = new MathStudent();
 console.log(Pero);
 console.log(Pero instanceof Student);
 console.log(Pero instanceof MathStudent);
+
+
+//console.dir(Pero);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
@@ -454,10 +459,16 @@ console.log(Ivan.z);
 <h3>Native objects</h3>
 <form class="small">
 <textarea>
-var a = 2;	// think "var a = new Number(2);"
+var a = new Number(2);
+console.dir(a);
+
+
+/*
+var a = 2;
 console.log(a.__proto__);
 console.log(a.__proto__.__proto__);
 console.log(a.__proto__.__proto__.__proto__);
+*/
 
 //console.log(a.constructor.prototype);
 </textarea>
