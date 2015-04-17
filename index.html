@@ -302,6 +302,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 <h3>What is OOP?</h3>
 <pre>
 Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects", which are data structures that contain data, in the form of fields, often known as attributes or properties; and code, in the form of procedures, often known as methods.
+
 Class vs. Object - An object is an instance of a class
 </pre>
 
@@ -451,8 +452,7 @@ console.log(Pero.__proto__ == MathStudent.prototype);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>proto (or __proto__) in debugger shows full inheritance chain. It's a pointer to prototype of the class that created that object.
-If property or method isn't found in current object, engine goes through prototype chain trying to find it.
+<pre>proto (or __proto__) in debugger shows full inheritance chain. It's a pointer to prototype of the class that created that object. If property or method isn't found in current object, engine goes through prototype chain trying to find it.
 </pre>
 
 <h3>Prototype Chain</h3>
@@ -463,8 +463,6 @@ If property or method isn't found in current object, engine goes through prototy
 <textarea>
 var a = new Number(2);
 console.dir(a);	//shows proto chain for native object
-
-
 
 /*
 var a = 2;
