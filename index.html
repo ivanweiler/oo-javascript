@@ -51,9 +51,8 @@ console.log("Hello Matematika");
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 <pre>
-Chrome or Firefox + built-in Dev tools
+Google Chrome with built-in dev tools
 https://developers.google.com/chrome-developer-tools/
-https://developer.mozilla.org/en/docs/Tools
 </pre>
 
 <h3>Codecademy, JSFiddle</h3>
@@ -427,9 +426,6 @@ var Pero = new MathStudent();
 console.log(Pero);
 console.log(Pero instanceof Student);
 console.log(Pero instanceof MathStudent);
-
-
-//console.dir(Pero);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
@@ -440,18 +436,24 @@ Inheritance is when one class extends another class, inheriting all its behaviou
 <h3>Prototype Chain</h3>
 <form>
 <textarea>
-var Ivan = {x:1, y:2};
-var Pero = {x:11, y:12, z:13};
+function MathStudent() {
+	this.department = "Mathematics";
+}
+function Student() {
+	this.university = "J.J. Strossmayer, Osijek";
+}
 
-console.log(Ivan.z);
+MathStudent.prototype = new Student();	//MathStudent extends Student
 
-
-//Ivan.__proto__ = Pero; // Pero is now the prototype of Ivan
-//console.log(Ivan.z);
+var Pero = new MathStudent();
+console.dir(Pero);	//shows full proto chain in debugger
+console.log(Pero.__proto__ == MathStudent.prototype);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>__proto__ isn't working in all browsers, it's used here just for presentation purposes</pre>
+<pre>proto (or __proto__) in debugger shows full inheritance chain. It's a pointer to prototype of the class that created that object.
+If property or method isn't found in current object, engine goes through prototype chain trying to find it.
+</pre>
 
 <h3>Prototype Chain</h3>
 <img src="assets/prototype.gif" />
@@ -460,7 +462,8 @@ console.log(Ivan.z);
 <form class="small">
 <textarea>
 var a = new Number(2);
-console.dir(a);
+console.dir(a);	//shows proto chain for native object
+
 
 
 /*
@@ -479,21 +482,21 @@ All objects in JavaScript are descended from object "Object", so all objects inh
 </pre>
 
 
-<h3>Object.create()</h3>
-<pre>New age method. Creates a new object with the specified prototype object and properties.</pre>
-<form class="small">
+<h3>Extension of native prototypes</h3>
+<form>
 <textarea>
-var Student = {
-	department: "Mathematics";
-	test: function() { alert("Test called."); }
+Object.prototype.lol = function() {
+	console.log(":]");
 };
-var Pero = Object.create(Student); 
-console.log(Pero);
+
+var n = 5;
+var b = false;
+
+n.lol();
+b.lol();
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-
-<h3>Extension of native prototypes</h3>
 <pre>
 One mis-feature that is often used is to extend Object.prototype or one of the other built-in prototypes. While sometimes used by popular frameworks, there is still no good reason for cluttering built-in types with additional non-standard functionality.
 The only good reason for extending a built-in prototype is to backport the features of newer JavaScript engines; for example Array.forEach, etc.
