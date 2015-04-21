@@ -530,6 +530,245 @@ http://ejohn.org/apps/learn/#64
 </pre>
 
 
+
+<!-- PART 2 --------------
+
+24.04. Advanced OO: this, scopes, closures, hoisting, references, namespaces, ... Inchoo.
+
+-------------------------->
+
+
+
+<h2>Context</h2>
+
+<h3>What is "this"?</h3>
+<form>
+<textarea>
+//function
+function test() {
+	console.log(this);
+}
+test();
+
+//method
+var o = {};
+o.test = function() {
+	console.log(this);
+}
+o.test();
+
+//constructor
+function test() {
+	console.log(this);
+}
+new test();
+
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>Context (the value of this) is controlled by either the new keyword, in which case the context is the newly created object, or by how a function is invoked.</pre>
+
+<h3>Changing function context</h3>
+<pre>call() and apply()</pre>
+<form class="">
+<textarea>
+//Function.call(this[, arg1, arg2, ...argN])
+//Function.apply(this[, arguments])
+
+function test(x,y){
+	this.x = x;
+	this.y = y;
+	console.log(this);
+}
+test('Inchoo',1);
+
+var o1 = {};
+var o2 = {};
+
+test.call(o1, 'Inchoo', '1');
+test.apply(o2, ['Inchoo', '2']);
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>There is also new Function.bind(thisArg[, arg1[, arg2[, ...]]]). The bind() method creates a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.</pre>
+
+<h3>Practical examples</h3>
+<form>
+<textarea>
+var o = {
+	message: 'Inchoo',
+	setMessage: function(m) {
+		this.message = m;
+	},
+	alertMessage: function() {
+		alert(this.message);
+	}
+};
+
+document.getElementById('dummy').addEventListener('click', o.alertMessage);
+
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<a class="closure" href="#dummy" id="dummy">Click 1</a>
+
+
+<h2>Variable Scope</h2>
+
+<h3>Global and local variables</h3>
+<pre>What will be value of "a" in below example?</pre>
+<form>
+<textarea>
+var a = 1;
+function test() {
+	a = 1337;
+	b = 2;
+}
+
+test();
+console.log(a);
+console.log(b);
+
+//console.log(window.a);
+//what if we add "var a;" inside function?
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>If variable isn't set as local with "var", it will always be global in javascript.</pre>
+
+<h3>The Scope Chain</h3>
+<form>
+<textarea>
+var a = 1;
+function first(){
+	var b = 2;
+	function second(){
+		console.log(a,b);
+    }
+    second();
+}
+first();
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>
+When variable isn't found, javascript will climb up the scope chain trying to find it.
+This is why window object is acting like top most global in javascript. He's always on top :)
+</pre>
+
+<h3>Local, global, property ..</h3>
+<form class="large">
+<textarea>
+var x = 1;
+var o = {
+	x:2,
+	test: function(){
+		var x = 3;
+		
+		console.log(x); 
+		console.log(this.x); 
+		console.log(window.x);
+	}
+}
+
+o.test();
+
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+
+<h3>Closures</h3>
+
+<pre>A closure is when you pass funcX to another function somewhere. The scope of funcX is then captured, or, "enclosed" and passed along with it.</pre>
+<form>
+<textarea>
+var x = "global";
+
+function test() {
+	var x = "local";
+  	
+    var test2 = function() {
+    	console.log(x);
+    }
+    
+    return test2;
+}
+
+var test2 = test();
+test2();
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+<h3>Closures - example 1</h3>
+<form>
+<textarea>
+//$('a.closure').off();
+
+$('a.closure').each(function(i){
+	var id = this.id;
+	var k = 'test-'+i;
+	$(this).click(function(){
+		console.log(id);
+		console.log(k);
+	});
+});
+
+//what if "var k" was defined above each?
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<a class="closure" href="#dummy" id="closure-1">Click 1</a> <a class="closure" href="#dummy" id="closure-2">Click 2</a> <a class="closure" href="#dummy" id="closure-3">Click 3</a>
+
+<h3>Closures - example 2</h3>
+<form class="large">
+<textarea>
+(function(window){
+         
+    var a = 'foo', b = 'bar';
+   
+    function private(){
+        // do something
+    }
+       
+    window.Module = {
+       
+        public: function(){
+            // do something
+        }
+    };
+
+})(this);	
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+
+<h2>Additional</h2>
+
+<h3>Questions</h3>
+<form class="large">
+<textarea>
+//playground
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+<h3>Todo</h3>
+<pre>Go through this workshop one more time. Check resources.</pre>
+
+<h3>Resources</h3>
+<pre>
+http://ryanmorr.com/understanding-scope-and-context-in-javascript/
+http://ejohn.org/apps/learn/
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
+https://developers.google.com/speed/articles/optimizing-javascript
+Secrets of the JavaScript Ninja // John Resig // book
+</pre>
+
+
+
 <!--
 <h2>Subtitle</h2>
 
