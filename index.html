@@ -570,8 +570,8 @@ changeMe(o, a);
 console.log(o, a);
 
 
-//add property to object "o"
-//push new element to array
+//add property to object from changeMe
+//push new element to array from changeMe
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
@@ -579,12 +579,11 @@ console.log(o, a);
 
 <h2>Context</h2>
 
-<h3>What is "this"?</h3>
+<h3>Example 1</h3>
 <form>
 <textarea>
 var Student = function() {
     this.department = "Mathematics";
-    this.name = "Pero";
 };
 
 var s = new Student();
@@ -592,50 +591,55 @@ console.log(s);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>"this" references current object.
-Context (the value of this) is controlled by either the new keyword, in which case the context is the newly created object, or by how a function is invoked.
+<pre>"this" references current object. Context, the value of this = where are we currently, in which object. 
+Context is controlled by either the new keyword, in which case the context is the newly created object, or by how a function is invoked.
 </pre>
-
 
 <h3>Example 2</h3>
 <form>
 <textarea>
 var o = new Object();
-o.message = "Hello world";
+o.department = "Mathematics";
+
 o.logMessage = function() {
 	console.log(this.message);
 };
 
 o.logMessage();
+
+//write with Object short syntax with everything declared inside
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-
 
 <h3>The Window</h3>
 <form>
 <textarea>
 console.log(this);
 
-//what about normal functions?
-</textarea>
-<button type="button">Reset</button><button type="submit">Run</button>
-</form>
-
-<h3>Example 3</h3>
-<form>
-<textarea>
-//what about normal functions?
-
+//what about functions?
 function test() {
     console.log(this);
 }
-
 test();
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
+<pre>The window object represents an open window in a browser. In browsers, everything happens inside window (the Matrix has you).</pre>
 
+
+<h3>The Window</h3>
+<form>
+<textarea>
+a = 5;
+function test() {
+};
+
+console.log(window.a);
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>All global JavaScript objects, functions, and variables automatically become members of the window object.</pre>
 
 <h3>Changing function context</h3>
 <pre>call() and apply()</pre>
@@ -644,7 +648,7 @@ test();
 //Function.call(this[, arg1, arg2, ...argN])
 //Function.apply(this[, arguments])
 
-function test(x, y){
+function test(x, y) {
 	this.x = x;
 	this.y = y;
 	console.log(this);
@@ -658,12 +662,12 @@ test.call(o1, "Hello world", 1);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>There is also new Function.bind(thisArg[, arg1[, arg2[, ...]]]). The bind() method creates a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.</pre>
+<pre>There is also new Function.bind(thisArg[, arg1[, arg2[, ...]]]).</pre>
 
 <h3>Namespaces</h3>
 <form>
 <textarea>
-a= 8;
+a = 8;
 function test() {};
 
 var Inchoo = {};
@@ -690,9 +694,9 @@ Inchoo.test = function() {}
 <h2>Variable Scope</h2>
 
 <h3>Global and local variables</h3>
-<pre>What will be value of "a" in below example?</pre>
 <form>
 <textarea>
+//what will be value of "a" in below example?
 var a = 1;
 function test() {
 	a = 1337;
@@ -746,27 +750,42 @@ var o = {
 }
 
 o.test();
-
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 
-
-<h2>Hoisting</h2>
-
-<h3>Dummy</h3>
+<h3>Hoisting</h3>
 <form>
 <textarea>
+//what will be value of "a" in below example?
+
+var a = 1;
+function test() {
+	a = 1337;
+	var a;
+}
+
 test();
 console.log(a);
-
-
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>
-A variable can be used before it has been declared.
-</pre>
+<pre>Variable declarations are hoisted, initializations are not. Declare your variables at the top !!</pre>
+
+<h3>Function Hoisting</h3>
+<form>
+<textarea>
+//will this work?
+test();
+
+function test() {
+    console.log("Test called");
+}
+
+//what if we declare test with var?
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
 
 
 <h3>Closures</h3>
@@ -775,28 +794,34 @@ A variable can be used before it has been declared.
 <textarea>
 var x = "global";
 
-function test() {
+function outer() {
 	var x = "local";
   	
-    var test2 = function() {
+    function inner() {
     	console.log(x);
     }
     
-    return test2;
+    return inner;
 }
 
-var test2 = test();
-test2();
+var inner = outer();
+inner();
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>A closure is when you pass funcX to another function somewhere. The scope of funcX is then captured, or, "enclosed" and passed along with it.</pre>
+<pre>Every JavaScript function forms a closure on creation. Javascript functions take their environment with them.
 
+A closure is when you pass funcX to another function somewhere. The scope of funcX is then captured, or, "enclosed" and passed along with it.
+</pre>
 
 <h3>Closures - example 1</h3>
 <form>
 <textarea>
 //nekakav each() primjer
+
+for(i=1; i<=5; i++) {
+   
+}
 
 //what if "var k" was defined above each?
 </textarea>
@@ -843,12 +868,21 @@ test2();
 
 <h3>Resources</h3>
 <pre>
+
+http://bonsaiden.github.io/JavaScript-Garden/#function.closures
+
 http://ryanmorr.com/understanding-scope-and-context-in-javascript/
 http://ejohn.org/apps/learn/
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
-Secrets of the JavaScript Ninja // John Resig // book
-</pre>
 
+http://www.w3schools.com/js/js_function_closures.asp
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+
+https://javascriptweblog.wordpress.com/2010/10/25/understanding-javascript-closures/
+http://dmitrysoshnikov.com/ecmascript/chapter-4-scope-chain/
+
+
+</pre>
 
 
 <!--
