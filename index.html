@@ -537,6 +537,44 @@ http://ejohn.org/apps/learn/#64
 
 -------------------------->
 
+<h2 id="part-2">Value vs. Reference</h2>
+
+<h3>Example 1</h3>
+<form>
+<textarea>
+var n = 2;
+var b = true;
+
+function changeMe(num, boo) {
+    num = 8;
+    boo = false;
+}
+
+changeMe(n, b);
+console.log(n, b);
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+<h3>Example 2</h3>
+<form>
+<textarea>
+var o = {'key1': 5, 'key2': 8};
+var a = [1, 2, 3];
+
+function changeMe(obj, arr) {
+    obj = {};
+}
+
+changeMe(o, a);
+console.log(o, a);
+
+
+//add property to object "o"
+//push new element to array
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
 
 
 <h2>Context</h2>
@@ -544,29 +582,60 @@ http://ejohn.org/apps/learn/#64
 <h3>What is "this"?</h3>
 <form>
 <textarea>
-//function
-function test() {
-	console.log(this);
-}
-test();
+var Student = function() {
+    this.department = "Mathematics";
+    this.name = "Pero";
+};
 
-//method
-var o = {};
-o.test = function() {
-	console.log(this);
-}
-o.test();
-
-//constructor
-function test() {
-	console.log(this);
-}
-new test();
-
+var s = new Student();
+console.log(s);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>Context (the value of this) is controlled by either the new keyword, in which case the context is the newly created object, or by how a function is invoked.</pre>
+<pre>"this" references current object.
+Context (the value of this) is controlled by either the new keyword, in which case the context is the newly created object, or by how a function is invoked.
+</pre>
+
+
+<h3>Example 2</h3>
+<form>
+<textarea>
+var o = new Object();
+o.message = "Hello world";
+o.logMessage = function() {
+	console.log(this.message);
+};
+
+o.logMessage();
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+
+<h3>The Window</h3>
+<form>
+<textarea>
+console.log(this);
+
+//what about normal functions?
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+<h3>Example 3</h3>
+<form>
+<textarea>
+//what about normal functions?
+
+function test() {
+    console.log(this);
+}
+
+test();
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
 
 <h3>Changing function context</h3>
 <pre>call() and apply()</pre>
@@ -575,42 +644,47 @@ new test();
 //Function.call(this[, arg1, arg2, ...argN])
 //Function.apply(this[, arguments])
 
-function test(x,y){
+function test(x, y){
 	this.x = x;
 	this.y = y;
 	console.log(this);
 }
-test('Inchoo',1);
+test("Hello world", 1);
 
 var o1 = {};
 var o2 = {};
 
-test.call(o1, 'Inchoo', '1');
-test.apply(o2, ['Inchoo', '2']);
+test.call(o1, "Hello world", 1);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 <pre>There is also new Function.bind(thisArg[, arg1[, arg2[, ...]]]). The bind() method creates a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.</pre>
 
-<h3>Practical examples</h3>
+<h3>Namespaces</h3>
 <form>
 <textarea>
-var o = {
-	message: 'Inchoo',
-	setMessage: function(m) {
-		this.message = m;
-	},
-	alertMessage: function() {
-		alert(this.message);
-	}
-};
+a= 8;
+function test() {};
 
-document.getElementById('dummy').addEventListener('click', o.alertMessage);
-
+var Inchoo = {};
+Inchoo.test = function() {}
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<a class="closure" href="#dummy" id="dummy">Click 1</a>
+<pre>Code is ussualy grouped in namespaces to seperate functionality and prevent value overwriting.</pre>
+
+
+<h3>Questions</h3>
+<form>
+<textarea>
+//playground
+
+(function(){
+    //do something
+});
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
 
 
 <h2>Variable Scope</h2>
@@ -653,7 +727,7 @@ first();
 </form>
 <pre>
 When variable isn't found, javascript will climb up the scope chain trying to find it.
-This is why window object is acting like top most global in javascript. He's always on top :)
+This is why window object is acting like top most global in javascript.
 </pre>
 
 <h3>Local, global, property ..</h3>
@@ -678,9 +752,25 @@ o.test();
 </form>
 
 
+<h2>Hoisting</h2>
+
+<h3>Dummy</h3>
+<form>
+<textarea>
+test();
+console.log(a);
+
+
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>
+A variable can be used before it has been declared.
+</pre>
+
+
 <h3>Closures</h3>
 
-<pre>A closure is when you pass funcX to another function somewhere. The scope of funcX is then captured, or, "enclosed" and passed along with it.</pre>
 <form>
 <textarea>
 var x = "global";
@@ -700,26 +790,19 @@ test2();
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
+<pre>A closure is when you pass funcX to another function somewhere. The scope of funcX is then captured, or, "enclosed" and passed along with it.</pre>
+
 
 <h3>Closures - example 1</h3>
 <form>
 <textarea>
-//$('a.closure').off();
-
-$('a.closure').each(function(i){
-	var id = this.id;
-	var k = 'test-'+i;
-	$(this).click(function(){
-		console.log(id);
-		console.log(k);
-	});
-});
+//nekakav each() primjer
 
 //what if "var k" was defined above each?
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<a class="closure" href="#dummy" id="closure-1">Click 1</a> <a class="closure" href="#dummy" id="closure-2">Click 2</a> <a class="closure" href="#dummy" id="closure-3">Click 3</a>
+
 
 <h3>Closures - example 2</h3>
 <form class="large">
@@ -763,7 +846,6 @@ $('a.closure').each(function(i){
 http://ryanmorr.com/understanding-scope-and-context-in-javascript/
 http://ejohn.org/apps/learn/
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
-https://developers.google.com/speed/articles/optimizing-javascript
 Secrets of the JavaScript Ninja // John Resig // book
 </pre>
 
