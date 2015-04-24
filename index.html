@@ -563,15 +563,13 @@ var o = {'key1': 5, 'key2': 8};
 var a = [1, 2, 3];
 
 function changeMe(obj, arr) {
-    obj = {};
+    //add property to an object
+    //push new value in array
 }
 
 changeMe(o, a);
 console.log(o, a);
 
-
-//add property to object from changeMe
-//push new element to array from changeMe
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
@@ -591,7 +589,7 @@ console.log(s);
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>"this" references current object. Context, the value of this = where are we currently, in which object. 
+<pre>"this" references current object in execution. Context, the value of this = where are we currently, in which object. 
 Context is controlled by either the new keyword, in which case the context is the newly created object, or by how a function is invoked.
 </pre>
 
@@ -612,6 +610,24 @@ o.logMessage();
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 
+<h3>Example 3</h3>
+<form class="">
+<textarea>
+var firstname = "Petra";
+var Student = {
+  firstname: "Pero",
+  logName: function() { console.log(this.firstname); }
+};
+
+Student.logName();
+
+var logName = Student.logName;
+logName();
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+
 <h3>The Window</h3>
 <form>
 <textarea>
@@ -625,7 +641,7 @@ test();
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>The window object represents an open window in a browser. In browsers, everything happens inside window (the Matrix has you).</pre>
+<pre>The window object represents an open window in a browser. In browsers, everything happens inside window. The Matrix has you!</pre>
 
 
 <h3>The Window</h3>
@@ -636,14 +652,17 @@ function test() {
 };
 
 console.log(window.a);
+
+
+//declare your own string, log window, find your string
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 <pre>All global JavaScript objects, functions, and variables automatically become members of the window object.</pre>
 
+
 <h3>Changing function context</h3>
-<pre>call() and apply()</pre>
-<form class="">
+<form>
 <textarea>
 //Function.call(this[, arg1, arg2, ...argN])
 //Function.apply(this[, arguments])
@@ -678,14 +697,23 @@ Inchoo.test = function() {}
 <pre>Code is ussualy grouped in namespaces to seperate functionality and prevent value overwriting.</pre>
 
 
+<h3>Wrapping global code in function</h3>
+<form>
+<textarea>
+(function(){
+    var a = "Hello World";
+    //do something
+});
+
+//window is clear here
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
 <h3>Questions</h3>
 <form>
 <textarea>
 //playground
-
-(function(){
-    //do something
-});
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
@@ -789,7 +817,6 @@ function test() {
 
 
 <h3>Closures</h3>
-
 <form>
 <textarea>
 var x = "global";
@@ -809,29 +836,88 @@ inner();
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
-<pre>Every JavaScript function forms a closure on creation. Javascript functions take their environment with them.
+<pre>Every JavaScript function forms a closure on creation. When you pass function to another scope, it takes its variable environment with it.</pre>
 
-A closure is when you pass funcX to another function somewhere. The scope of funcX is then captured, or, "enclosed" and passed along with it.
-</pre>
+
+<h3>Closures</h3>
+<form>
+<textarea>
+//VariableEnvironment: {x: undefined};
+var x = "global";
+//VariableEnvironment: {x: "global"};
+ 
+function outer() {
+    //VariableEnvironment: {x: undefined, outerLex: {x: "global"}};
+    var x = "local";    
+    //VariableEnvironment: {x: "local", outerLex: {x: "global"}};
+ 
+    function inner() {
+        //VariableEnvironment: {x: undefined, outerLex: {x: "local", outerLex: {x:"global"}};
+        console.log(x);
+    }
+}
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>https://javascriptweblog.wordpress.com/2010/10/25/understanding-javascript-closures/</pre>
+
 
 <h3>Closures - example 1</h3>
 <form>
 <textarea>
-//nekakav each() primjer
+var Student = {
+    name: "Pero",
+    logName: function() {
+        console.log(this.name);
+    },
+    logNameAfterOneSecond: function() {
+        setTimeout(this.logName, 1000);
+    }
+};
 
-for(i=1; i<=5; i++) {
-   
-}
-
-//what if "var k" was defined above each?
+Student.logNameAfterOneSecond();
 </textarea>
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 
-
 <h3>Closures - example 2</h3>
+<form>
+<textarea>
+var s = "Hello World";
+
+document.getElementById("test-link").onclick = function() {
+    console.log(this); 
+    console.log(s); 
+    return false; 
+}
+
+//document.getElementById("test-link").addEventListener("click", function() { console.log(s); });
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+<pre>In javascript you're often passing functions as callbacks, this is when closures are really useful.</pre>
+<a id="test-link" href="#test-link">Test Link</a>
+
+<h3>Closures - example 3</h3>
+<form>
+<textarea>
+ var add = (function () {
+    var counter = 0;
+    return function () { return counter += 1; }
+})();
+
+console.log(add());
+console.log(add());
+console.log(add());
+</textarea>
+<button type="button">Reset</button><button type="submit">Run</button>
+</form>
+
+<h3>Closures - example 4</h3>
 <form class="large">
 <textarea>
+//private properties and methods
+
 (function(window){
          
     var a = 'foo', b = 'bar';
@@ -852,7 +938,6 @@ for(i=1; i<=5; i++) {
 <button type="button">Reset</button><button type="submit">Run</button>
 </form>
 
-
 <h2>Additional</h2>
 
 <h3>Questions</h3>
@@ -864,24 +949,18 @@ for(i=1; i<=5; i++) {
 </form>
 
 <h3>Todo</h3>
-<pre>Go through this workshop one more time. Check resources.</pre>
+<pre>http://ejohn.org/apps/learn/#48
+Go through this workshop one more time. Check resources.</pre>
 
 <h3>Resources</h3>
 <pre>
-
-http://bonsaiden.github.io/JavaScript-Garden/#function.closures
-
 http://ryanmorr.com/understanding-scope-and-context-in-javascript/
 http://ejohn.org/apps/learn/
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
-
 http://www.w3schools.com/js/js_function_closures.asp
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
-
 https://javascriptweblog.wordpress.com/2010/10/25/understanding-javascript-closures/
-http://dmitrysoshnikov.com/ecmascript/chapter-4-scope-chain/
-
-
 </pre>
 
 
