@@ -597,7 +597,7 @@ Context is controlled by either the new keyword, in which case the context is th
 <form>
 <textarea>
 var o = new Object();
-o.department = "Mathematics";
+o.message = "Mathematics";
 
 o.logMessage = function() {
 	console.log(this.message);
@@ -701,13 +701,14 @@ Inchoo.test = function() {}
 <form>
 <textarea>
 (function(){
-    var a = "Hello World";
-    var b = function() {
-    
-    };
-    
-    //do something
-});
+	var a = "Hello World";
+	var b = function() {
+	};
+	
+	console.log("Hello world");
+
+	//do something
+})();
 
 //window is clear here
 </textarea>
